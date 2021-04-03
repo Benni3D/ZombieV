@@ -17,3 +17,10 @@ In the release folder you will find binaries, each one corresponding to a scenar
 *  Game with bots
 *  Lights demo
 *  Bots + night
+
+## Keys
+| Key | Function |
+|-----|----------|
+| WASD | Move |
+| Q | Change Gun |
+| R | Reload Gun |
