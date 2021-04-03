@@ -1,10 +1,17 @@
-#include "Weapons/Pistol.hpp"
+#include "Weapons/Weapons.hpp"
 #include "System/GameRender.hpp"
 #include "System/GameWorld.hpp"
+#include "System/Utils.hpp"
 #include "Props/Props.hpp"
 
 Pistol::Pistol()
 {
+   _magazineSize = 12;
+   _currentAmmo = 12;
+   _totalAmmo = 1000000;
+   _recoil = 0.1f;
+
+
     m_fireCooldown = Cooldown(0.2f);
     _recoil = 0.0f;
 
@@ -26,16 +33,18 @@ Pistol::Pistol()
 
 bool Pistol::fire(GameWorld* world, WorldEntity* entity)
 {
-    if (m_fireCooldown.isReady() && _releasedTrigger)
+    if (isReady() && _releasedTrigger)
     {
-        _recoil += 0.15f;
+       --_currentAmmo;
+       SoundPlayer::playInstanceOf(AK::m_shootSounds[getRandInt(0, 2)]);
+       _recoil += 0.15f;
         _recoil = std::min(1.0f, _recoil);
 
         m_fireCooldown.reset();
         _releasedTrigger = false;
 
         float entityAngle(entity->getAngle());
-        Bullet* newBullet = Bullet::add(0.0f, 1.5f*CELL_SIZE, 7.0f, 0);
+        Bullet* newBullet = Bullet::add(0.0f, 1.5f*CELL_SIZE, 40.0f, 0);
         newBullet->init(entity->getCoord(), entityAngle);
         world->addEntity(newBullet);
 
@@ -58,7 +67,7 @@ bool Pistol::fire(GameWorld* world, WorldEntity* entity)
 
 void Pistol::reload()
 {
-
+   _currentAmmo = 12;
 }
 
 void Pistol::update()

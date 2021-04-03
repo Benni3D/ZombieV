@@ -37,7 +37,7 @@ int main()
 
     int waveCount = 0;
 
-    for (int i(2); i--;)
+    for (int i(0); i--;)
     {
         world.addEntity(Bot::newEntity(static_cast<float>(MAP_SIZE / 2 + rand() % 10), static_cast<float>(MAP_SIZE / 2 + rand() % 10)));
     }
@@ -45,7 +45,7 @@ int main()
     sf::Mouse::setPosition(sf::Vector2i(WIN_WIDTH/2+100, WIN_HEIGHT/2));
 
     Zombie* newZombie;
-    for (int i(100); i--;)
+    for (int i(200); i--;)
     {
         newZombie = Zombie::newEntity(getRandUnder(static_cast<float>(MAP_SIZE)), getRandUnder(static_cast<float>(MAP_SIZE)));
 		EntityID target = h.getID();

@@ -12,10 +12,10 @@ std::vector<size_t> AK::m_shootSounds;
 
 AK::AK()
 {
-    _magazineSize        = 30;
-    _currentAmmo         = 30;
+    _magazineSize        = 60;
+    _currentAmmo         = 60;
     _totalAmmo           = 1000000;
-    _recoil              = 0.0f;
+    _recoil              = 0.1f;
 
     m_fireCooldown = Cooldown(0.1f);
 

@@ -1,12 +1,17 @@
-#include "Weapons/Shotgun.hpp"
+#include "Weapons/Weapons.hpp"
 #include <System/GameRender.hpp>
 #include <System/GameWorld.hpp>
 #include "Props/Props.hpp"
+#include "System/Utils.hpp"
 
 Shotgun::Shotgun()
 {
-    m_fireCooldown = Cooldown(0.05f);
+    m_fireCooldown = Cooldown(0.1f);
     _recoil = 0.0f;
+
+   _magazineSize = 16;
+   _currentAmmo = 16;
+   _totalAmmo = 10000000;
 
     _shootAnimation = Animation(3, 1, 312, 206, 3, 10);
     _shootAnimation.setTextureID(_shootTextureID);
@@ -21,25 +26,30 @@ Shotgun::Shotgun()
     _idleAnimation.setCenter(sf::Vector2f(96, 120));
 
     _fireDist = 2.2f;
+   _releasedTrigger = true;
 }
 
 bool Shotgun::fire(GameWorld* world, WorldEntity* entity)
 {
-    if (m_fireCooldown.isReady())
+    if (isReady() && _releasedTrigger)
     {
+       --_currentAmmo;
+       SoundPlayer::playInstanceOf(AK::m_shootSounds[getRandInt(0, 2)]);
         _recoil += 0.15f;
         _recoil = _recoil>1.0f?1.0f:_recoil;
+         
+         _releasedTrigger = false;
 
         m_fireCooldown.reset();
 
         float entityAngle = entity->getAngle();
 
         int openAngle = 24;
-        for (int i(0); i<12; ++i)
+        for (int i(0); i<32; ++i)
         {
             float angle = static_cast<float>(rand()%openAngle-openAngle/2);
             float speed = (rand()%50+125)/100.0f;
-            Bullet* newBullet = Bullet::add(angle*DEGRAD, speed*CELL_SIZE, 15.0f, 30);
+            Bullet* newBullet = Bullet::add(angle*DEGRAD, speed*CELL_SIZE, 5.0f, 30);
             newBullet->init(entity->getCoord(), entityAngle);
             world->addEntity(newBullet);
 
@@ -60,7 +70,7 @@ bool Shotgun::fire(GameWorld* world, WorldEntity* entity)
 
 void Shotgun::reload()
 {
-
+   _currentAmmo = 16;
 }
 
 void Shotgun::update()

@@ -19,7 +19,7 @@ private:
     Vec2 _fireOut;
     Vec2 _bulletOut;
     Vec2 _shellsOut;
-
+public:
     static std::vector<size_t> m_shootSounds;
 };
 
