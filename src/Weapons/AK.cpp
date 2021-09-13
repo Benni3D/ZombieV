@@ -12,12 +12,13 @@ std::vector<size_t> AK::m_shootSounds;
 
 AK::AK()
 {
-    _magazineSize        = 60;
-    _currentAmmo         = 60;
+    //_magazineSize        = 60;
+    _magazineSize        = 120000;
+    _currentAmmo         = 1000000;
     _totalAmmo           = 1000000;
     _recoil              = 0.1f;
 
-    m_fireCooldown = Cooldown(0.1f);
+    m_fireCooldown = Cooldown(0.0001f);
 
     /// Init weapon animations, could be static
     _shootAnimation = Animation(3, 1, 312, 206, 3, 40);

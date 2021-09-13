@@ -10,8 +10,8 @@
 #include "Hunter.hpp"
 #include "Zombie.hpp"
 
-#define WIN_WIDTH 1600
-#define WIN_HEIGHT 900
+#define WIN_WIDTH 1920
+#define WIN_HEIGHT 1080
 
 #include "System/Utils.hpp"
 

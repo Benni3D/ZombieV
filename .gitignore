@@ -17,3 +17,4 @@ ZV/x64/
 *.idb
 
 build/
+Makefile
